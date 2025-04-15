@@ -18,7 +18,7 @@ model User {
   email      String  @unique
   name       String?
   password   String
-  avatarPath String?
+  avatarPath String? @default("/default-avatar.png") // Дефолтная аватарка
 
   verificationToken String? @default(cuid()) @map("verification_token")
 

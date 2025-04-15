@@ -1,7 +1,7 @@
 import { Auth } from '@/auth/decorators/auth.decorator'
 import { CurrentUser } from '@/auth/decorators/user.decorator'
-import { Controller, Get } from '@nestjs/common'
-import { Role } from '@prisma/client'
+import { Controller, Get, Put } from '@nestjs/common'
+import { Role, User } from '@prisma/client'
 import { UserService } from './user.service'
 
 @Controller('users')
@@ -30,5 +30,11 @@ export class UserController {
   @Get('list')
   async getList() {
     return this.userService.getUsers()
+  }
+
+  @Auth()
+  @Put('update')
+  async update(@CurrentUser('id') id: string, data: Partial<User>) {
+    return this.userService.update(id, data)
   }
 }
