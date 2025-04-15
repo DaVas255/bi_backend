@@ -25,3 +25,10 @@ model mdl_local_ims_logs {
   action    String
   other     String
 }
+
+model mdl_user {
+  id        Int    @id @default(autoincrement())
+  username  String
+  firstname String
+  lastname  String
+}
