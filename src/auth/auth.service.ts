@@ -1,17 +1,18 @@
-import { EmailService } from '@/email/email.service'
-import { PrismaService } from '@/prisma.service'
-import { UserService } from '@/user/user.service'
+import { EmailService } from '@/email/email.service';
+import { PrismaPgService } from '../prisma/prisma-pg.service';
+
+import { UserService } from '@/user/user.service';
 import {
   BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException
-} from '@nestjs/common'
-import { JwtService } from '@nestjs/jwt'
-import { Role, type User } from '@prisma/client'
-import { verify } from 'argon2'
-import { omit } from 'lodash'
-import { AuthDto } from './dto/auth.dto'
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { Role, type User } from '@prisma/client';
+import { verify } from 'argon2';
+import { omit } from 'lodash';
+import { AuthDto } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
     private jwt: JwtService,
     private userService: UserService,
     private emailService: EmailService,
-    private prisma: PrismaService
+    private prisma: PrismaPgService
   ) { }
 
   private readonly TOKEN_EXPIRATION_ACCESS = '1h'

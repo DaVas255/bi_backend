@@ -6,12 +6,11 @@ import {
 import { Injectable } from '@nestjs/common'
 import type { User } from '@prisma/client'
 import { hash } from 'argon2'
-
-import { PrismaService } from 'src/prisma.service'
+import { PrismaPgService } from '../prisma/prisma-pg.service'
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaPgService) { }
 
   async getUsers() {
     return this.prisma.user.findMany({
