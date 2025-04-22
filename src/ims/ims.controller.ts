@@ -1,11 +1,23 @@
-import { Controller, Get } from '@nestjs/common'
-import { ImsService } from './ims.service'
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { ImsService } from './ims.service';
 
-@Controller('')
+@Controller('ims')
 export class ImsController {
   constructor(private readonly imsService: ImsService) { }
 
-  @Get('ims')
+  @Get('courses-with-ims')
+  async getCoursesWithIms(){
+    return this.imsService.getCoursesWithIms();
+  }
+
+  @Get('course/:courseId')
+  async getImsByCourseId(
+    @Param('courseId', ParseIntPipe) courseId: number,
+  ) {
+    return this.imsService.getImsByCourseId(courseId);
+  }
+
+  @Get('ims/all-logs')
   async getAll() {
     return this.imsService.getAll()
   }

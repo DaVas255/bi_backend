@@ -92,42 +92,43 @@ model mdl_user {
 }
 
 model mdl_course {
-  id                       BigInt   @id @default(autoincrement())
-  category                 BigInt   @default(0)
-  sortorder                BigInt   @default(0)
-  fullname                 String   @default("") @db_mysql.VarChar(254)
-  shortname                String   @default("") @db_mysql.VarChar(255)
-  idnumber                 String   @default("") @db_mysql.VarChar(100)
-  summary                  String?  @db_mysql.LongText
-  summaryformat            Int      @default(0) @db_mysql.TinyInt
-  format                   String   @default("topics") @db_mysql.VarChar(21)
-  showgrades               Int      @default(1) @db_mysql.TinyInt
-  newsitems                Int      @default(1) @db_mysql.MediumInt
-  startdate                BigInt   @default(0)
-  enddate                  BigInt   @default(0)
-  relativedatesmode        Boolean  @default(false)
-  marker                   BigInt   @default(0)
-  maxbytes                 BigInt   @default(0)
-  legacyfiles              Int      @default(0) @db_mysql.SmallInt
-  showreports              Int      @default(0) @db_mysql.SmallInt
-  visible                  Boolean  @default(true)
-  visibleold               Boolean  @default(true)
+  id                       BigInt      @id @default(autoincrement())
+  category                 BigInt      @default(0)
+  sortorder                BigInt      @default(0)
+  fullname                 String      @default("") @db_mysql.VarChar(254)
+  shortname                String      @default("") @db_mysql.VarChar(255)
+  idnumber                 String      @default("") @db_mysql.VarChar(100)
+  summary                  String?     @db_mysql.LongText
+  summaryformat            Int         @default(0) @db_mysql.TinyInt
+  format                   String      @default("topics") @db_mysql.VarChar(21)
+  showgrades               Int         @default(1) @db_mysql.TinyInt
+  newsitems                Int         @default(1) @db_mysql.MediumInt
+  startdate                BigInt      @default(0)
+  enddate                  BigInt      @default(0)
+  relativedatesmode        Boolean     @default(false)
+  marker                   BigInt      @default(0)
+  maxbytes                 BigInt      @default(0)
+  legacyfiles              Int         @default(0) @db_mysql.SmallInt
+  showreports              Int         @default(0) @db_mysql.SmallInt
+  visible                  Boolean     @default(true)
+  visibleold               Boolean     @default(true)
   downloadcontent          Boolean?
-  groupmode                Int      @default(0) @db_mysql.SmallInt
-  groupmodeforce           Int      @default(0) @db_mysql.SmallInt
-  defaultgroupingid        BigInt   @default(0)
-  lang                     String   @default("") @db_mysql.VarChar(30)
-  calendartype             String   @default("") @db_mysql.VarChar(30)
-  theme                    String   @default("") @db_mysql.VarChar(50)
-  timecreated              BigInt   @default(0)
-  timemodified             BigInt   @default(0)
-  requested                Boolean  @default(false)
-  enablecompletion         Boolean  @default(false)
-  completionnotify         Boolean  @default(false)
-  cacherev                 BigInt   @default(0)
+  groupmode                Int         @default(0) @db_mysql.SmallInt
+  groupmodeforce           Int         @default(0) @db_mysql.SmallInt
+  defaultgroupingid        BigInt      @default(0)
+  lang                     String      @default("") @db_mysql.VarChar(30)
+  calendartype             String      @default("") @db_mysql.VarChar(30)
+  theme                    String      @default("") @db_mysql.VarChar(50)
+  timecreated              BigInt      @default(0)
+  timemodified             BigInt      @default(0)
+  requested                Boolean     @default(false)
+  enablecompletion         Boolean     @default(false)
+  completionnotify         Boolean     @default(false)
+  cacherev                 BigInt      @default(0)
   originalcourseid         BigInt?
-  showactivitydates        Boolean  @default(false)
+  showactivitydates        Boolean     @default(false)
   showcompletionconditions Boolean?
+  mdl_imscp                mdl_imscp[] @relation("course_imscps")
 
   @@index([category], map: "mdl_cour_cat_ix")
   @@index([idnumber], map: "mdl_cour_idn_ix")
@@ -136,15 +137,16 @@ model mdl_course {
 }
 
 model mdl_imscp {
-  id           BigInt  @id @default(autoincrement())
-  course       BigInt  @default(0)
-  name         String  @default("") @db_mysql.VarChar(255)
-  intro        String? @db_mysql.LongText
-  introformat  Int     @default(0) @db_mysql.SmallInt
-  revision     BigInt  @default(0)
-  keepold      BigInt  @default(-1)
-  structure    String? @db_mysql.LongText
-  timemodified BigInt  @default(0)
+  id           BigInt     @id @default(autoincrement())
+  course       BigInt     @default(0)
+  name         String     @default("") @db_mysql.VarChar(255)
+  intro        String?    @db_mysql.LongText
+  introformat  Int        @default(0) @db_mysql.SmallInt
+  revision     BigInt     @default(0)
+  keepold      BigInt     @default(-1)
+  structure    String?    @db_mysql.LongText
+  timemodified BigInt     @default(0)
+  mdl_course   mdl_course @relation("course_imscps", fields: [course], references: [id], onDelete: Cascade, onUpdate: Restrict)
 
   @@index([course], map: "mdl_imsc_cou_ix")
 }
