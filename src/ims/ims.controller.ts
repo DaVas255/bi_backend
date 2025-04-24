@@ -3,10 +3,10 @@ import { ImsService } from './ims.service';
 
 @Controller('ims')
 export class ImsController {
-  constructor(private readonly imsService: ImsService) { }
+  constructor(private readonly imsService: ImsService) {}
 
   @Get('courses-with-ims')
-  async getCoursesWithIms(){
+  async getCoursesWithIms() {
     return this.imsService.getCoursesWithIms();
   }
 
@@ -17,18 +17,18 @@ export class ImsController {
     return this.imsService.getImsByCourseId(courseId);
   }
 
-  @Get('ims/all-logs')
-  async getAll() {
-    return this.imsService.getAll()
+  @Get('all-logs')
+  async getAllLogs() {
+    return this.imsService.getAllLogs();
   }
 
-  @Get('ims/users')
+  @Get('users') // Обновил путь
   async getUsersFromLogs() {
-    return this.imsService.getUsersFromLogs()
+    return this.imsService.getUsersFromLogs();
   }
 
-  @Get('ims/components')
+  @Get('components') // Обновил путь
   async getComponentsOfIms() {
-    return this.imsService.getComponentsOfIms()
+    return this.imsService.getComponentsOfIms();
   }
 }
